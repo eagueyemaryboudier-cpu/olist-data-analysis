@@ -1,0 +1,63 @@
+// Mesures a creer dans Power BI Desktop. Noms de tables conformes au guide.
+// Filtre de page recommande : FactOrders[analysis_period]=1.
+// Les notes et retards portent sur les commandes livrees.
+
+Commandes = COUNTROWS(FactOrders)
+
+Commandes livrees =
+CALCULATE([Commandes], FactOrders[order_status] = "delivered")
+
+GMV articles livres =
+CALCULATE(SUM(FactOrders[item_value]), FactOrders[order_status] = "delivered")
+
+Panier moyen articles =
+DIVIDE([GMV articles livres], [Commandes livrees])
+
+Commandes dates valides =
+CALCULATE(COUNT(FactOrders[is_late]), FactOrders[order_status] = "delivered")
+
+Commandes en retard =
+CALCULATE(SUM(FactOrders[is_late]), FactOrders[order_status] = "delivered")
+
+Taux de retard =
+DIVIDE([Commandes en retard], [Commandes dates valides])
+
+Note moyenne =
+CALCULATE(AVERAGE(FactOrders[review_score]), FactOrders[order_status] = "delivered")
+
+Avis disponibles =
+CALCULATE(COUNT(FactOrders[review_score]), FactOrders[order_status] = "delivered")
+
+Taux avis negatifs =
+DIVIDE(
+    CALCULATE(SUM(FactOrders[bad_review]), FactOrders[order_status] = "delivered"),
+    [Avis disponibles]
+)
+
+Delai median jours =
+CALCULATE(MEDIAN(FactOrders[delivery_days]), FactOrders[order_status] = "delivered")
+
+Commandes annulees =
+CALCULATE([Commandes], FactOrders[order_status] = "canceled")
+
+Taux annulation = DIVIDE([Commandes annulees], [Commandes])
+
+// Mesures ARTICLES a utiliser sur la page categories/vendeurs.
+// Ne pas utiliser les mesures de FactOrders sous un filtre de DimProducts.
+GMV articles par produit =
+CALCULATE(SUM(FactItems[price]), FactOrders[order_status] = "delivered")
+
+Commandes avec produit =
+CALCULATE(DISTINCTCOUNT(FactItems[order_id]), FactOrders[order_status] = "delivered")
+
+Articles livres =
+CALCULATE(COUNTROWS(FactItems), FactOrders[order_status] = "delivered")
+
+// Table Cohorts autonome ; ne pas la filtrer par la date de commande.
+Clients eligibles 90j =
+CALCULATE(COUNTROWS(Cohorts), Cohorts[eligible_90] = 1)
+
+Clients reachat 90j =
+CALCULATE(SUM(Cohorts[repeat_90]), Cohorts[eligible_90] = 1)
+
+Taux reachat 90j = DIVIDE([Clients reachat 90j], [Clients eligibles 90j])

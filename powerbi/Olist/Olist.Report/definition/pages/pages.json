@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "p01_performance",
+    "p02_livraison",
+    "p03_offre",
+    "p04_fidelisation"
+  ],
+  "activePageName": "p01_performance"
+}

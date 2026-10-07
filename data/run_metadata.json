@@ -1,0 +1,20 @@
+{
+  "python": "3.10.6",
+  "pandas": "1.4.4",
+  "numpy": "1.23.5",
+  "scipy": "1.8.1",
+  "matplotlib": "3.5.3",
+  "source_min_purchase": "2016-09-04 21:15:19",
+  "source_max_purchase": "2018-10-17 17:30:18",
+  "period_start": "2017-01-01",
+  "period_end_inclusive": "2018-08-31",
+  "source_orders": 99441,
+  "delivered_orders": 96211,
+  "gmv": 13181027.130000003,
+  "late_rate": 0.06788769580990198,
+  "late_timestamp_rate": 0.08130723574108915,
+  "avg_review": 4.156328478151683,
+  "delivery_median": 10.209988425925927,
+  "sql_reconciliation": "passed",
+  "hypothesis_count": 26
+}

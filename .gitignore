@@ -1,0 +1,23 @@
+# Données sources et détails régénérables
+data/raw/*
+!data/raw/README.md
+data/fact_*.csv
+data/dim_*.csv
+data/customer_cohorts.csv
+data/geo_prefix.csv
+powerbi/Olist/Data/
+powerbi/.schemas/
+**/.pbi/
+*.sqlite
+*.sqlite-*
+*.pbix
+*.pbix.backup
+.qa/
+.venv/
+.env
+.env.*
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db

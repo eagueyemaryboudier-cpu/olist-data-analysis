@@ -1,0 +1,710 @@
+{
+  "name": "Olist",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "fr-FR",
+    "sourceQueryCulture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "tables": [
+      {
+        "name": "FactOrders",
+        "columns": [
+          {
+            "name": "order_id",
+            "dataType": "string",
+            "sourceColumn": "order_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "customer_unique_id",
+            "dataType": "string",
+            "sourceColumn": "customer_unique_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "order_status",
+            "dataType": "string",
+            "sourceColumn": "order_status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "purchase_date",
+            "dataType": "dateTime",
+            "sourceColumn": "purchase_date",
+            "summarizeBy": "none",
+            "formatString": "dd/MM/yyyy"
+          },
+          {
+            "name": "purchase_month",
+            "dataType": "string",
+            "sourceColumn": "purchase_month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "customer_state",
+            "dataType": "string",
+            "sourceColumn": "customer_state",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "item_value",
+            "dataType": "double",
+            "sourceColumn": "item_value",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "freight_value",
+            "dataType": "double",
+            "sourceColumn": "freight_value",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "gross_value",
+            "dataType": "double",
+            "sourceColumn": "gross_value",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "payment_total",
+            "dataType": "double",
+            "sourceColumn": "payment_total",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "item_count",
+            "dataType": "int64",
+            "sourceColumn": "item_count",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "seller_count",
+            "dataType": "int64",
+            "sourceColumn": "seller_count",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "review_score",
+            "dataType": "int64",
+            "sourceColumn": "review_score",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "bad_review",
+            "dataType": "int64",
+            "sourceColumn": "bad_review",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "delivery_days",
+            "dataType": "double",
+            "sourceColumn": "delivery_days",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_late",
+            "dataType": "int64",
+            "sourceColumn": "is_late",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "analysis_period",
+            "dataType": "int64",
+            "sourceColumn": "analysis_period",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "payment_type",
+            "dataType": "string",
+            "sourceColumn": "payment_type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "max_installments",
+            "dataType": "int64",
+            "sourceColumn": "max_installments",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "livraison_statut",
+            "dataType": "string",
+            "sourceColumn": "livraison_statut",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "commande_type",
+            "dataType": "string",
+            "sourceColumn": "commande_type",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactOrders",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"FactOrders.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"order_id\", type text}, {\"customer_unique_id\", type text}, {\"order_status\", type text}, {\"purchase_date\", type datetime}, {\"purchase_month\", type text}, {\"customer_state\", type text}, {\"item_value\", type number}, {\"freight_value\", type number}, {\"gross_value\", type number}, {\"payment_total\", type number}, {\"item_count\", Int64.Type}, {\"seller_count\", Int64.Type}, {\"review_score\", Int64.Type}, {\"bad_review\", Int64.Type}, {\"delivery_days\", type number}, {\"is_late\", Int64.Type}, {\"analysis_period\", Int64.Type}, {\"payment_type\", type text}, {\"max_installments\", Int64.Type}, {\"livraison_statut\", type text}, {\"commande_type\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Commandes",
+            "expression": "CALCULATE(COUNTROWS(FactOrders), FactOrders[analysis_period] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "01 Performance"
+          },
+          {
+            "name": "Commandes livrées",
+            "expression": "CALCULATE([Commandes], FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "01 Performance"
+          },
+          {
+            "name": "GMV articles",
+            "expression": "CALCULATE(SUM(FactOrders[item_value]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "01 Performance"
+          },
+          {
+            "name": "Panier moyen",
+            "expression": "DIVIDE([GMV articles], [Commandes livrées])",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "01 Performance"
+          },
+          {
+            "name": "Taux annulation",
+            "expression": "DIVIDE(CALCULATE([Commandes], FactOrders[order_status] = \"canceled\"), [Commandes])",
+            "formatString": "0.0%",
+            "displayFolder": "01 Performance"
+          },
+          {
+            "name": "Livraisons évaluables",
+            "expression": "CALCULATE(COUNT(FactOrders[is_late]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Retards",
+            "expression": "CALCULATE(SUM(FactOrders[is_late]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Taux de retard",
+            "expression": "DIVIDE([Retards], [Livraisons évaluables])",
+            "formatString": "0.0%",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Délai médian",
+            "expression": "CALCULATE(MEDIAN(FactOrders[delivery_days]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "0.0 \"j\"",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Note moyenne",
+            "expression": "CALCULATE(AVERAGE(FactOrders[review_score]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "0.00",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Avis disponibles",
+            "expression": "CALCULATE(COUNT(FactOrders[review_score]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Avis négatifs",
+            "expression": "CALCULATE(SUM(FactOrders[bad_review]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Taux avis négatifs",
+            "expression": "DIVIDE([Avis négatifs], [Avis disponibles])",
+            "formatString": "0.0%",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Retard États 500+",
+            "expression": "IF([Commandes livrées] >= 500, [Taux de retard])",
+            "formatString": "0.0%",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Note après réception",
+            "expression": "AVERAGE(ReviewAnalysis[review_score])",
+            "formatString": "0.00",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "Avis après réception",
+            "expression": "COUNTROWS(ReviewAnalysis)",
+            "formatString": "#,0",
+            "displayFolder": "02 Livraison"
+          },
+          {
+            "name": "GMV produits",
+            "expression": "CALCULATE(SUM(FactItems[price]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "Articles livrés",
+            "expression": "CALCULATE(COUNTROWS(FactItems), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "Commandes produits",
+            "expression": "CALCULATE(DISTINCTCOUNT(FactItems[order_id]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "Vendeurs actifs",
+            "expression": "CALCULATE(DISTINCTCOUNT(FactItems[seller_id]), FactOrders[analysis_period] = 1, FactOrders[order_status] = \"delivered\")",
+            "formatString": "#,0",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "GMV top catégories",
+            "expression": "VAR Rang = RANKX(ALLSELECTED(DimProducts[category]), [GMV produits], , DESC, DENSE) RETURN IF(Rang <= 10, [GMV produits])",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "GMV top vendeurs",
+            "expression": "VAR Rang = RANKX(ALLSELECTED(DimSellers[Vendeur]), [GMV produits], , DESC, DENSE) RETURN IF(Rang <= 10, [GMV produits])",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "03 Offre"
+          },
+          {
+            "name": "Clients éligibles",
+            "expression": "CALCULATE(COUNTROWS(Cohorts), Cohorts[eligible_90] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "04 Fidélisation"
+          },
+          {
+            "name": "Clients avec réachat",
+            "expression": "CALCULATE(SUM(Cohorts[repeat_90]), Cohorts[eligible_90] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "04 Fidélisation"
+          },
+          {
+            "name": "Réachat à 90 jours",
+            "expression": "DIVIDE([Clients avec réachat], [Clients éligibles])",
+            "formatString": "0.00%",
+            "displayFolder": "04 Fidélisation"
+          },
+          {
+            "name": "Panier initial",
+            "expression": "CALCULATE(AVERAGE(Cohorts[item_value]), Cohorts[eligible_90] = 1)",
+            "formatString": "#,0.00 \"BRL\"",
+            "displayFolder": "04 Fidélisation"
+          },
+          {
+            "name": "Réachat États 200+",
+            "expression": "IF([Clients éligibles] >= 200, [Réachat à 90 jours])",
+            "formatString": "0.00%",
+            "displayFolder": "04 Fidélisation"
+          }
+        ]
+      },
+      {
+        "name": "FactItems",
+        "columns": [
+          {
+            "name": "order_id",
+            "dataType": "string",
+            "sourceColumn": "order_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "order_item_id",
+            "dataType": "int64",
+            "sourceColumn": "order_item_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "seller_id",
+            "dataType": "string",
+            "sourceColumn": "seller_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "price",
+            "dataType": "double",
+            "sourceColumn": "price",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "freight_value",
+            "dataType": "double",
+            "sourceColumn": "freight_value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactItems",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"FactItems.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"order_id\", type text}, {\"order_item_id\", Int64.Type}, {\"product_id\", type text}, {\"seller_id\", type text}, {\"price\", type number}, {\"freight_value\", type number}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProducts",
+        "columns": [
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimProducts",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"DimProducts.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"product_id\", type text}, {\"category\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimSellers",
+        "columns": [
+          {
+            "name": "seller_id",
+            "dataType": "string",
+            "sourceColumn": "seller_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Vendeur",
+            "dataType": "string",
+            "sourceColumn": "Vendeur",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "seller_state",
+            "dataType": "string",
+            "sourceColumn": "seller_state",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimSellers",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"DimSellers.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"seller_id\", type text}, {\"Vendeur\", type text}, {\"seller_state\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "formatString": "dd/MM/yyyy",
+            "isKey": true
+          },
+          {
+            "name": "Mois",
+            "dataType": "string",
+            "sourceColumn": "Mois",
+            "summarizeBy": "none",
+            "sortByColumn": "MoisNumero"
+          },
+          {
+            "name": "Annee",
+            "dataType": "int64",
+            "sourceColumn": "Annee",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MoisNumero",
+            "dataType": "int64",
+            "sourceColumn": "MoisNumero",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"DimDate.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"Date\", type datetime}, {\"Mois\", type text}, {\"Annee\", Int64.Type}, {\"MoisNumero\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "dataCategory": "Time"
+      },
+      {
+        "name": "Cohorts",
+        "columns": [
+          {
+            "name": "customer_unique_id",
+            "dataType": "string",
+            "sourceColumn": "customer_unique_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "cohort_month",
+            "dataType": "string",
+            "sourceColumn": "cohort_month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "customer_state",
+            "dataType": "string",
+            "sourceColumn": "customer_state",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "eligible_90",
+            "dataType": "int64",
+            "sourceColumn": "eligible_90",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "repeat_90",
+            "dataType": "int64",
+            "sourceColumn": "repeat_90",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "item_value",
+            "dataType": "double",
+            "sourceColumn": "item_value",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reachat",
+            "dataType": "string",
+            "sourceColumn": "Reachat",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Cohorts",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"Cohorts.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"customer_unique_id\", type text}, {\"cohort_month\", type text}, {\"customer_state\", type text}, {\"eligible_90\", Int64.Type}, {\"repeat_90\", Int64.Type}, {\"item_value\", type number}, {\"Reachat\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ReviewAnalysis",
+        "columns": [
+          {
+            "name": "order_id",
+            "dataType": "string",
+            "sourceColumn": "order_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "review_score",
+            "dataType": "int64",
+            "sourceColumn": "review_score",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "bad_review",
+            "dataType": "int64",
+            "sourceColumn": "bad_review",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Retard",
+            "dataType": "string",
+            "sourceColumn": "Retard",
+            "summarizeBy": "none",
+            "sortByColumn": "OrdreRetard"
+          },
+          {
+            "name": "OrdreRetard",
+            "dataType": "int64",
+            "sourceColumn": "OrdreRetard",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ReviewAnalysis",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"ReviewAnalysis.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"order_id\", type text}, {\"review_score\", Int64.Type}, {\"bad_review\", Int64.Type}, {\"Retard\", type text}, {\"OrdreRetard\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "34a08f48-905a-5159-bd70-4b981a9fbffa",
+        "fromTable": "FactOrders",
+        "fromColumn": "purchase_date",
+        "fromCardinality": "many",
+        "toTable": "DimDate",
+        "toColumn": "Date",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "d24ccd0c-55f6-556b-84db-108ddeb05a48",
+        "fromTable": "FactItems",
+        "fromColumn": "order_id",
+        "fromCardinality": "many",
+        "toTable": "FactOrders",
+        "toColumn": "order_id",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "33e6829c-b716-552e-a476-4e8658c1b117",
+        "fromTable": "FactItems",
+        "fromColumn": "product_id",
+        "fromCardinality": "many",
+        "toTable": "DimProducts",
+        "toColumn": "product_id",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "d9107130-6e70-5076-9442-8a82fde7c41e",
+        "fromTable": "FactItems",
+        "fromColumn": "seller_id",
+        "fromCardinality": "many",
+        "toTable": "DimSellers",
+        "toColumn": "seller_id",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "71b8b5ca-8d2a-55db-83d9-999db0e36c4c",
+        "fromTable": "ReviewAnalysis",
+        "fromColumn": "order_id",
+        "fromCardinality": "many",
+        "toTable": "FactOrders",
+        "toColumn": "order_id",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": "\"C:/CHANGE_ME/olist-data-analysis/powerbi/Olist/Data/\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DataFolder\", \"FactOrders\", \"FactItems\", \"DimProducts\", \"DimSellers\", \"DimDate\", \"Cohorts\", \"ReviewAnalysis\"]"
+      }
+    ]
+  }
+}

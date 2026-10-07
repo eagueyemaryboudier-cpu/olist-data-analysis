@@ -1,0 +1,10 @@
+{
+  "pages": 4,
+  "visuals": 53,
+  "data_tables": 7,
+  "measures": 27,
+  "schema_validated_files": 63,
+  "field_references": "passed",
+  "relationships": "passed",
+  "power_bi_desktop_refresh": "not_yet_validated"
+}

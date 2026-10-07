@@ -1,0 +1,25 @@
+﻿controle,valeur,traitement
+Doublons de cle : orders,0,Arret si non nul
+Doublons de cle : customers,0,Arret si non nul
+Doublons de cle : products,0,Arret si non nul
+Doublons de cle : sellers,0,Arret si non nul
+Doublons de cle : order_items,0,Arret si non nul
+Doublons de cle : order_payments,0,Arret si non nul
+"References absentes order_id, table 112650 lignes",0,Arret si non nul
+"References absentes order_id, table 103886 lignes",0,Arret si non nul
+"References absentes order_id, table 99224 lignes",0,Arret si non nul
+"References absentes customer_id, table 99441 lignes",0,Arret si non nul
+"References absentes product_id, table 112650 lignes",0,Arret si non nul
+"References absentes seller_id, table 112650 lignes",0,Arret si non nul
+Commandes avec plusieurs avis,547,"Dernier avis par date de reponse, puis creation, puis review_id, puis ordre source"
+Doublons review_id,814,review_id non utilise seul comme cle
+Commandes sans articles,775,Montants laisses manquants
+Commandes sans paiement,1,Montants laisses manquants
+Commandes sans avis,768,Exclues des moyennes de notes
+Livrees sans date de reception,8,Exclues des delais
+Reception avant achat,0,Duree exclue des indicateurs logistiques
+Remise transporteur avant approbation,1359,Duree de preparation exclue
+Reception avant remise transporteur,23,Duree de transit exclue
+Avis repondu avant reception,4654,"Conserves pour descriptif, exclus du test principal retard-note"
+"Ecart paiement vs articles+port > 0,01 BRL",303,"Signale, aucune correction arbitraire"
+Coordonnees hors rectangle large du Bresil,42,Exclues avant mediane par prefixe

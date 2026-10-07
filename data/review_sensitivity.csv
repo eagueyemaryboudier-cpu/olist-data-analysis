@@ -1,0 +1,7 @@
+﻿population,is_late,n,review_score,bad_review_rate
+Tous avis disponibles,0.0,89182,4.291157408445651,0.0924738175865085
+Tous avis disponibles,1.0,6378,2.270617748510505,0.6241768579492004
+"Avis apres reception, tous clients",0.0,89005,4.291792595921577,0.09232065614291332
+"Avis apres reception, tous clients",1.0,1907,3.7194546407970637,0.1945464079706345
+"Avis apres reception, un par client (H10)",0.0,86327,4.289017341040463,0.09274039408296361
+"Avis apres reception, un par client (H10)",1.0,1854,3.7195253505933117,0.19363538295577132

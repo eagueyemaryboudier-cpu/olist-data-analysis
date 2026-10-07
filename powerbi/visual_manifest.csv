@@ -1,0 +1,54 @@
+﻿page,name,type,title,x,y,width,height
+p01_performance,header_p01_performance,textbox,,0,0,1440,76
+p01_performance,subtitle_p01_performance,textbox,,24,80,920,34
+p01_performance,filter_p01_performance_0,slicer,Mois d’achat,24,116,452,76
+p01_performance,filter_p01_performance_1,slicer,État client,492,116,452,76
+p01_performance,card_p01_performance_0,card,Commandes livrées,24,208,336,102
+p01_performance,card_p01_performance_1,card,Volume d’affaires articles,376,208,336,102
+p01_performance,card_p01_performance_2,card,Panier moyen hors port,728,208,336,102
+p01_performance,card_p01_performance_3,card,Taux d’annulation,1080,208,336,102
+p01_performance,ventes_mois,lineChart,Commandes livrées par mois,24,328,688,246
+p01_performance,gmv_mois,clusteredColumnChart,GMV par mois (BRL),728,328,688,246
+p01_performance,gmv_etat,clusteredBarChart,GMV par État client,24,590,688,260
+p01_performance,statuts,donutChart,Répartition des statuts de commande,728,590,688,260
+p02_livraison,header_p02_livraison,textbox,,0,0,1440,76
+p02_livraison,subtitle_p02_livraison,textbox,,24,80,920,34
+p02_livraison,filter_p02_livraison_0,slicer,Mois d’achat,24,116,452,76
+p02_livraison,filter_p02_livraison_1,slicer,État client,492,116,452,76
+p02_livraison,card_p02_livraison_0,card,Livraisons en retard,24,208,336,102
+p02_livraison,card_p02_livraison_1,card,Délai médian,376,208,336,102
+p02_livraison,card_p02_livraison_2,card,Note moyenne / 5,728,208,336,102
+p02_livraison,card_p02_livraison_3,card,Avis négatifs (1–2),1080,208,336,102
+p02_livraison,retard_mois,lineChart,Taux de retard par mois,24,328,688,246
+p02_livraison,note_retard,clusteredColumnChart,Note après réception · première commande admissible/client,728,328,688,246
+p02_livraison,retard_etats,clusteredBarChart,Retard par État · au moins 500 commandes livrées sélectionnées,24,590,688,260
+p02_livraison,notes,clusteredColumnChart,Distribution des notes · dernier avis par commande,728,590,688,260
+p03_offre,header_p03_offre,textbox,,0,0,1440,76
+p03_offre,subtitle_p03_offre,textbox,,24,80,920,34
+p03_offre,filter_p03_offre_0,slicer,Catégorie produit,24,116,452,76
+p03_offre,filter_p03_offre_1,slicer,État vendeur,492,116,452,76
+p03_offre,filter_p03_offre_2,slicer,Mois d’achat,960,116,452,76
+p03_offre,card_p03_offre_0,card,GMV de la sélection,24,208,336,102
+p03_offre,card_p03_offre_1,card,Articles livrés,376,208,336,102
+p03_offre,card_p03_offre_2,card,Commandes distinctes,728,208,336,102
+p03_offre,card_p03_offre_3,card,Vendeurs actifs,1080,208,336,102
+p03_offre,top_categories,clusteredBarChart,Dix catégories au plus fort GMV dans la sélection,24,328,688,246
+p03_offre,top_vendeurs,clusteredBarChart,Dix vendeurs au plus fort GMV dans la sélection,728,328,688,246
+p03_offre,gmv_offre_mois,lineChart,Évolution du GMV de la sélection,24,590,688,260
+p03_offre,table_categories,tableEx,Détail des catégories · décompte non additif des commandes,728,590,688,260
+p04_fidelisation,header_p04_fidelisation,textbox,,0,0,1440,76
+p04_fidelisation,subtitle_p04_fidelisation,textbox,,24,80,920,34
+p04_fidelisation,filter_p04_fidelisation_0,slicer,Cohorte du premier achat,24,116,452,76
+p04_fidelisation,filter_p04_fidelisation_1,slicer,État client,492,116,452,76
+p04_fidelisation,card_p04_fidelisation_0,card,Clients éligibles,24,208,336,102
+p04_fidelisation,card_p04_fidelisation_1,card,Clients avec réachat,376,208,336,102
+p04_fidelisation,card_p04_fidelisation_2,card,Réachat à 90 jours,728,208,336,102
+p04_fidelisation,card_p04_fidelisation_3,card,Panier articles initial,1080,208,336,102
+p04_fidelisation,cohort_rate,lineChart,Taux de réachat à 90 jours par cohorte,24,328,688,246
+p04_fidelisation,cohort_volume,clusteredColumnChart,Taille des cohortes éligibles,728,328,688,246
+p04_fidelisation,cohort_etat,clusteredBarChart,Réachat par État · au moins 200 clients éligibles,24,590,688,260
+p04_fidelisation,table_cohort,tableEx,Cohortes · taux recalculé sur les totaux,728,590,688,260
+p01_performance,footer_p01_performance,textbox,,24,862,1392,26
+p02_livraison,footer_p02_livraison,textbox,,24,862,1392,26
+p03_offre,footer_p03_offre,textbox,,24,862,1392,26
+p04_fidelisation,footer_p04_fidelisation,textbox,,24,862,1392,26

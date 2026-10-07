@@ -1,0 +1,557 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Olist — Étude de cas Data Analyst</title><style>
+    :root{--ink:#17324d;--accent:#147d92;--bg:#fafbfc}*{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:#24394d;font:16px/1.75 'Segoe UI',Arial,sans-serif}
+    header{background:var(--ink);color:white;padding:64px max(5vw,calc((100vw - 1160px)/2));}
+    .eyebrow{color:#a5dce2;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+    h1{font-size:clamp(32px,4vw,54px);line-height:1.15;max-width:900px;margin:16px 0 24px}
+    header p{max-width:850px;color:#dae5ee}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0 0}
+    .card{border-top:3px solid #61b4bf;background:#23415c;padding:18px}.card strong{display:block;font-size:28px;line-height:1.4}.card span{font-size:13px;color:#dce6ef}
+    main{max-width:1160px;margin:auto;padding:32px 28px 80px}nav{padding:22px;background:#eef3f6;display:flex;gap:8px 22px;flex-wrap:wrap}
+    nav a{font-size:13px;color:var(--accent);text-decoration:none}section{padding:34px 0;border-bottom:1px solid #dce4ea}
+    h2{font-size:26px;line-height:1.3;color:var(--ink);margin:0 0 20px}p{max-width:1000px;margin:0 0 16px}
+    .table-scroll{overflow:auto;margin:24px 0;border:1px solid #dce4ea;border-radius:4px}
+    table{border-collapse:collapse;width:100%;font-size:13px;line-height:1.5}th{background:var(--ink);color:white;text-align:left;padding:12px;vertical-align:top;min-width:90px}
+    td{padding:12px;vertical-align:top;border-bottom:1px solid #dce4ea;min-width:90px}tr:nth-child(even){background:#eef3f6}
+    #s12 td:nth-child(3){min-width:230px}#s12 td:nth-child(4){min-width:260px}figure{margin:28px 0}img{display:block;width:100%;height:auto}
+    footer{background:#eef3f6;padding:25px;text-align:center;font-size:13px}a{color:var(--accent)}
+    @media(max-width:720px){.cards{grid-template-columns:repeat(2,1fr)}header{padding:32px 20px}main{padding:20px}h2{font-size:23px}.card strong{font-size:23px}}
+    @media print{header{background:white;color:var(--ink);padding:10px}header p{color:#24394d}.cards{display:none}nav{display:none}main{padding:0}section{break-inside:avoid}body{font-size:11px}.table-scroll{overflow:visible}th{background:#ddd;color:black}img{max-height:500px;object-fit:contain}}
+    </style></head><body><header><div class="eyebrow">Portfolio · Data Analyst</div><h1>Olist : comprendre la croissance et les frictions de livraison</h1><p>26 hypothèses confrontées aux données. Une étude reproductible qui relie performance commerciale, expérience client et décisions opérationnelles.</p><p>Achats de janvier 2017 à août 2018 · Python & SQL · Préparation Power BI</p><div class="cards"><div class="card"><span>Commandes livrées</span><strong>96 211</strong></div><div class="card"><span>GMV articles</span><strong>13,18 M BRL</strong></div><div class="card"><span>Retard calendaire</span><strong>6,8 %</strong></div><div class="card"><span>Réachat à 90 jours</span><strong>2,0 %</strong></div></div></header><main><nav aria-label="Sommaire"><a href="#s1">1. La question métier</a><a href="#s2">2. Résumé des résultats</a><a href="#s3">3. Sources, périmètre et définitions</a><a href="#s4">4. Qualité des données et décisions</a><a href="#s5">5. Ventes : séparer croissance, panier et calendrier</a><a href="#s6">6. Livraison et satisfaction : un résultat sensible au choix des avis</a><a href="#s7">7. Produits, vendeurs et géographie</a><a href="#s8">8. Variations territoriales</a><a href="#s9">9. Dépendance aux vendeurs</a><a href="#s10">10. Paiement et réachat</a><a href="#s11">11. Méthodes statistiques et règles d&#x27;interprétation</a><a href="#s12">12. Registre des 26 hypothèses</a><a href="#s13">13. Plan d&#x27;action proposé</a><a href="#s14">14. Ce que cette étude ne permet pas de conclure</a><a href="#s15">15. Reproductibilité et livrables</a></nav><section id="s1"><h2>1. La question métier</h2>
+<p>Comment accompagner la croissance des ventes tout en améliorant la fiabilité des livraisons et l&#x27;expérience client ? Cette étude simule une mission de Data Analyst auprès d&#x27;une marketplace. Elle vise à identifier des priorités d&#x27;investigation, puis à proposer des actions mesurables.</p>
+<p>Le travail couvre 26 hypothèses sur les ventes, les produits, les vendeurs, les paiements, la géographie, la satisfaction et le réachat. Ce n&#x27;est pas une mission réellement commanditée par Olist : les décisions et expérimentations proposées sont celles d&#x27;un cas portfolio.</p>
+</section><section id="s2"><h2>2. Résumé des résultats</h2>
+<p>Sur janvier–août, les commandes finalement livrées passent de 21 998 en 2017 à 52 783 en 2018 (+139,9 %). Le panier articles moyen passe de 136,1 à 136,8 BRL (+0,5 %). La croissance observée vient donc principalement du volume, et non d&#x27;une forte hausse du panier.</p>
+<p>Les dix premières catégories concentrent 62,5 % du GMV. Les 20 % de vendeurs les plus importants en réalisent 82,2 %. Cette concentration justifie un suivi opérationnel prioritaire des vendeurs clés, sans présumer de leur marge ni de leur risque de départ.</p>
+<p>Dans la population d&#x27;avis postérieurs à la réception, les retards sont associés à une note inférieure de 0,57 point (IC 95 % de l&#x27;écart retard moins ponctuel : [-0,63 ; -0,51]). Les commandes multi-vendeurs présentent un écart de -1,46 point par rapport aux mono-vendeur. Les groupes diffèrent aussi par d&#x27;autres caractéristiques : ces écarts ne sont pas des effets causaux.</p>
+<p>Le réachat livré à 90 jours est de 2,0 %, soit 1 514 clients sur 75 387 éligibles. Il s&#x27;agit d&#x27;un comportement observé dans cet extrait et non du taux de fidélité global d&#x27;Olist.</p>
+<p>Toutes les intuitions ne sont pas confirmées : São Paulo représente 38,4 % du GMV, sous le seuil exploratoire de 40 %. Le nombre de photos n&#x27;a pas d&#x27;association nette avec la note. La durée supplémentaire de retard parmi les seuls avis post-réception en retard n&#x27;est pas concluante après correction des tests.</p>
+</section><section id="s3"><h2>3. Sources, périmètre et définitions</h2>
+<p>Neuf CSV fournis localement. Dates d&#x27;achat de l&#x27;extrait : 2016-09-04 21:15:19 à 2018-10-17 17:30:18. La période principale retient janvier 2017 à août 2018 : 2016 est fragmentaire et les derniers mois de 2018 présentent très peu de commandes. Cela ne prouve pas que les mois retenus couvrent toute l&#x27;activité d&#x27;Olist.</p>
+<p>L&#x27;analyse est rétrospective, par date d&#x27;achat, avec le statut final et les événements disponibles dans les fichiers. Ce n&#x27;est pas une photographie de ce qui était connu au 31 août 2018. Les commandes des cohortes de réachat sont datées par leur achat et doivent être finalement livrées dans l&#x27;extrait.</p>
+<p>GMV articles = somme de price pour les commandes livrées. Panier articles = GMV / nombre de commandes livrées. Les montants sont en BRL, sans correction d&#x27;inflation. Le port est traité séparément ; gross_value désigne articles + port. Les paiements ne sont pas additionnés au GMV.</p>
+<p>Retard = jour de réception strictement postérieur au jour promis. Les dates manquantes ne sont pas assimilées à des livraisons ponctuelles. La note est celle du dernier avis de commande, de 1 à 5. Un avis négatif correspond à 1 ou 2. Une note de commande n&#x27;est pas une note propre à chacun de ses produits ou vendeurs.</p>
+<p>Une commande peut contenir plusieurs lignes d&#x27;articles, paiements et avis. Le modèle agrège chaque table enfant avant les jointures avec les commandes. Il utilise customer_unique_id pour identifier un client entre achats. Les préfixes postaux restent du texte.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Fichier</th>
+      <th>Lignes</th>
+      <th>Colonnes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>olist_customers_dataset.csv</td>
+      <td>99441</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>olist_geolocation_dataset.csv</td>
+      <td>1000163</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>olist_order_items_dataset.csv</td>
+      <td>112650</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>olist_order_payments_dataset.csv</td>
+      <td>103886</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>olist_order_reviews_dataset.csv</td>
+      <td>99224</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>olist_orders_dataset.csv</td>
+      <td>99441</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>olist_products_dataset.csv</td>
+      <td>32951</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>olist_sellers_dataset.csv</td>
+      <td>3095</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>product_category_name_translation.csv</td>
+      <td>71</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section id="s4"><h2>4. Qualité des données et décisions</h2>
+<p>Les identifiants de commandes, clients, produits, vendeurs et les clés composées testées sont uniques. Toutes les références étrangères vérifiées existent. Les totaux articles, port et paiements avant et après agrégation concordent.</p>
+<p>Les 547 commandes avec plusieurs avis sont ramenées à un avis selon une règle déterministe : dernière réponse, puis création, review_id et position source. Les textes d&#x27;avis ne sont pas copiés dans le rapport. Les valeurs absentes restent manquantes.</p>
+<p>Les chronologies incohérentes sont signalées. Une durée négative de préparation ou de transit est exclue de l&#x27;indicateur correspondant sans supprimer arbitrairement toute la commande. Les avis avant réception sont conservés dans les descriptifs, puis exclus du test principal de satisfaction post-réception.</p>
+<p>Les coordonnées sont filtrées sur un rectangle large du Brésil puis agrégées par médiane du préfixe postal. Ce filtre simple n&#x27;est pas une validation par frontière nationale. La distance obtenue est une approximation à vol d&#x27;oiseau.</p>
+<p>Les rapprochements paiements / articles + port gardent une tolérance de 0,01 BRL. Les anomalies restent visibles et ne sont pas forcées à zéro.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Contrôle</th>
+      <th>Nombre</th>
+      <th>Traitement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Commandes avec plusieurs avis</td>
+      <td>547</td>
+      <td>Dernier avis par date de reponse, puis creation, puis review_id, puis ordre source</td>
+    </tr>
+    <tr>
+      <td>Doublons review_id</td>
+      <td>814</td>
+      <td>review_id non utilise seul comme cle</td>
+    </tr>
+    <tr>
+      <td>Commandes sans articles</td>
+      <td>775</td>
+      <td>Montants laisses manquants</td>
+    </tr>
+    <tr>
+      <td>Commandes sans paiement</td>
+      <td>1</td>
+      <td>Montants laisses manquants</td>
+    </tr>
+    <tr>
+      <td>Commandes sans avis</td>
+      <td>768</td>
+      <td>Exclues des moyennes de notes</td>
+    </tr>
+    <tr>
+      <td>Livrees sans date de reception</td>
+      <td>8</td>
+      <td>Exclues des delais</td>
+    </tr>
+    <tr>
+      <td>Remise transporteur avant approbation</td>
+      <td>1359</td>
+      <td>Duree de preparation exclue</td>
+    </tr>
+    <tr>
+      <td>Reception avant remise transporteur</td>
+      <td>23</td>
+      <td>Duree de transit exclue</td>
+    </tr>
+    <tr>
+      <td>Avis repondu avant reception</td>
+      <td>4654</td>
+      <td>Conserves pour descriptif, exclus du test principal retard-note</td>
+    </tr>
+    <tr>
+      <td>Ecart paiement vs articles+port &gt; 0,01 BRL</td>
+      <td>303</td>
+      <td>Signale, aucune correction arbitraire</td>
+    </tr>
+    <tr>
+      <td>Coordonnees hors rectangle large du Bresil</td>
+      <td>42</td>
+      <td>Exclues avant mediane par prefixe</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section id="s5"><h2>5. Ventes : séparer croissance, panier et calendrier</h2>
+<p>La comparaison annuelle porte sur les huit mêmes mois. Novembre est le mois le plus actif de 2017 avec 7 289 commandes livrées. Le dataset seul ne permet pas d&#x27;attribuer le pic à une promotion ou à Black Friday.</p>
+<p>Le week-end compte en moyenne 127,9 commandes livrées achetées par jour, contre 170,3 en semaine. Le calcul tient compte du nombre de jours et inclut les jours sans vente. Une analyse ajustée du calendrier resterait nécessaire avant de modifier les effectifs ou les budgets.</p>
+<p>Recommandation : suivre séparément volume, panier moyen et GMV, puis dimensionner la capacité logistique lors des pics. Vérifier ces schémas sur une période plus longue avant de les considérer comme une saisonnalité stable.</p>
+<figure><img src="figures/01_ventes.png" alt="5. Ventes : séparer croissance, panier et calendrier"></figure>
+</section><section id="s6"><h2>6. Livraison et satisfaction : un résultat sensible au choix des avis</h2>
+<p>Le taux de retard principal est de 6,8 %. Comparer les timestamps bruts donnerait 8,1 % : les promesses datées à minuit peuvent classer en retard une réception le même jour. La convention calendaire retenue doit accompagner le KPI.</p>
+<p>Le délai médian observé est de 10,2 jours. Le mois d&#x27;achat au taux de retard le plus élevé est 2018-03, à 19,0 %. Il mérite un audit des transporteurs, vendeurs et territoires ; le dataset n&#x27;identifie pas la cause.</p>
+<p>Seuls 29,9 % des avis de commandes en retard sont postérieurs à la réception (1 907 sur 6 378). Exclure les avis antérieurs retire donc une grande part de l&#x27;insatisfaction exprimée pendant l&#x27;attente. Le test H10 répond à la question de la satisfaction après réception, tandis que la première ligne de population décrit l&#x27;ensemble des avis disponibles.</p>
+<p>La direction de l&#x27;association doit être lue avec son ampleur et cette sélection. La régression, les contrôles par vendeur/catégorie/mois et des données de transport seraient des approfondissements utiles ; ils ne sont pas prétendus réalisés ici.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Population</th>
+      <th>Retard (1=oui)</th>
+      <th>Commandes notées</th>
+      <th>Note moyenne</th>
+      <th>Part notes 1–2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tous avis disponibles</td>
+      <td>0,000</td>
+      <td>89182</td>
+      <td>4,291</td>
+      <td>0,092</td>
+    </tr>
+    <tr>
+      <td>Tous avis disponibles</td>
+      <td>1,000</td>
+      <td>6378</td>
+      <td>2,271</td>
+      <td>0,624</td>
+    </tr>
+    <tr>
+      <td>Avis apres reception, tous clients</td>
+      <td>0,000</td>
+      <td>89005</td>
+      <td>4,292</td>
+      <td>0,092</td>
+    </tr>
+    <tr>
+      <td>Avis apres reception, tous clients</td>
+      <td>1,000</td>
+      <td>1907</td>
+      <td>3,719</td>
+      <td>0,195</td>
+    </tr>
+    <tr>
+      <td>Avis apres reception, un par client (H10)</td>
+      <td>0,000</td>
+      <td>86327</td>
+      <td>4,289</td>
+      <td>0,093</td>
+    </tr>
+    <tr>
+      <td>Avis apres reception, un par client (H10)</td>
+      <td>1,000</td>
+      <td>1854</td>
+      <td>3,720</td>
+      <td>0,194</td>
+    </tr>
+  </tbody>
+</table></div>
+<figure><img src="figures/02_retards_avis.png" alt="6. Livraison et satisfaction : un résultat sensible au choix des avis"></figure>
+</section><section id="s7"><h2>7. Produits, vendeurs et géographie</h2>
+<p>Les catégories et vendeurs se classent par GMV d&#x27;articles livrés. Les commandes distinctes d&#x27;une catégorie ne s&#x27;additionnent pas aux autres catégories. Pour les notes vendeurs, chaque couple vendeur–commande ne compte qu&#x27;une fois, mais une commande multi-vendeurs reste partagée entre plusieurs vendeurs.</p>
+<p>Les commandes inter-États mono-vendeur mettent en moyenne 15,2 jours à arriver, contre 7,9 dans le même État. La distance approximative est positivement associée au délai (rho de Spearman ≈ 0,545). Les comparaisons restent confondues avec les produits, vendeurs et conditions de transport.</p>
+<p>Les notes plus faibles des commandes multi-vendeurs sont un signal prioritaire à investiguer : livraisons séparées, complétude et communication des statuts sont des pistes de diagnostic, pas des causes établies par les données.</p>
+<p>Recommandation : auditer les vendeurs à volume suffisant (au moins 100 commandes avec dates valides), comparer des commandes similaires, et tester une promesse de livraison adaptée aux flux géographiques.</p>
+<figure><img src="figures/03_categories.png" alt="7. Produits, vendeurs et géographie"></figure>
+</section><section id="s8"><h2>8. Variations territoriales</h2>
+<p>Le graphique conserve les États comptant au moins 500 commandes livrées pour éviter de mettre en avant des taux instables sur quelques commandes. Le taux a pour dénominateur les commandes livrées avec dates valides. Une comparaison de taux bruts n&#x27;est pas un classement équitable des transporteurs.</p>
+<figure><img src="figures/04_etats.png" alt="8. Variations territoriales"></figure>
+</section><section id="s9"><h2>9. Dépendance aux vendeurs</h2>
+<p>Le repère 20/80 est une hypothèse exploratoire explicite, pas une loi supposée. Le groupe top 20 % est arrondi au vendeur supérieur et calculé parmi les vendeurs ayant au moins une vente livrée sur la période.</p>
+<p>Recommandation : mettre en place un suivi des vendeurs clés et un plan de continuité, tout en développant des vendeurs complémentaires. La concentration du GMV ne suffit pas à choisir quels vendeurs sont rentables.</p>
+<figure><img src="figures/05_vendeurs.png" alt="9. Dépendance aux vendeurs"></figure>
+</section><section id="s10"><h2>10. Paiement et réachat</h2>
+<p>Les commandes carte en plusieurs échéances ont un panier avec port moyen plus élevé que celles en une échéance (197,8 contre 100,5 BRL). Cela ne signifie pas que proposer le paiement fractionné crée cet écart : les acheteurs de paniers élevés peuvent choisir davantage cette option.</p>
+<p>La récurrence brute sur l&#x27;historique est proche de 3 %, mais la comparaison des cohortes utilise un horizon constant : 75 387 premiers acheteurs observés avant juin 2018, suivis sur 90 jours à partir de leur achat. Les achats hors Olist Store ou hors extrait ne sont pas visibles.</p>
+<p>H24 utilise une autre fenêtre, de 90 jours après réception, afin d&#x27;accorder la même durée de réachat aux groupes. Résultat : Retard initial : 0,008 (n=5267) ; A l&#x27;heure initial : 0,012 (n=68072) ; ecart -0,004. L&#x27;écart de proportions vaut -0,37 point de pourcentage. Sa portée est limitée par la sélection des clients et l&#x27;absence de variables marketing.</p>
+<p>Recommandation : lancer un test de relance post-livraison auprès de clients éligibles, avec groupe témoin randomisé. Mesurer le réachat incrémental, le coût et les désabonnements. Le dataset ne permet pas de chiffrer aujourd&#x27;hui le ROI de cette action.</p>
+<figure><img src="figures/06_reachat.png" alt="10. Paiement et réachat"></figure>
+</section><section id="s11"><h2>11. Méthodes statistiques et règles d&#x27;interprétation</h2>
+<p>Les hypothèses et seuils sont exploratoires, définis pour structurer cette étude, et non préenregistrés dans une étude confirmatoire. Les descriptions H01–H09 et H25 sont évaluées contre des critères explicites. Un résultat « observé » décrit uniquement l&#x27;extrait.</p>
+<p>Les comparaisons de moyennes utilisent Welch bilatéral avec IC de différence à 95 %. Les corrélations utilisent Spearman. Le test de catégories est un Kruskal–Wallis global : il ne démontre pas quelles paires diffèrent ni un simple écart de moyennes.</p>
+<p>Les 16 p-values inférentielles sont corrigées ensemble avec Benjamini–Hochberg ; le seuil exploratoire q &lt; 0,05 est utilisé pour les conclusions. Les IC restent marginaux, non corrigés pour comparaisons multiples. Les p-values numériquement nulles reflètent la précision machine et ne sont pas des probabilités exactement nulles.</p>
+<p>Pour réduire la répétition de clients, les tests sur les commandes conservent la première observation admissible par client. Les observations peuvent néanmoins être dépendantes via les vendeurs, les produits ou les périodes. La correction BH ne résout ni cette dépendance, ni les variables de confusion, ni le biais de sélection.</p>
+<p>Les notes sont ordinales : une moyenne est un résumé pratique, à lire avec les distributions. Une association de -0,051 point pour un port supérieur à 20 % du panier peut être statistiquement détectable sans être importante commercialement. Aucune conclusion n&#x27;est formulée comme une preuve de causalité.</p>
+</section><section id="s12"><h2>12. Registre des 26 hypothèses</h2>
+<p>Les effectifs, effets, intervalles, p-values, q-values et limites individuelles sont fournis dans data/hypotheses.csv. Les unités de chaque effet sont celles de la variable testée ; pour H24, multiplier l&#x27;écart par 100 pour obtenir des points de pourcentage.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ID</th>
+      <th>Thème</th>
+      <th>Hypothèse</th>
+      <th>Résultat</th>
+      <th>Conclusion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H01</td>
+      <td>Ventes</td>
+      <td>Le volume livre augmente entre janvier-aout 2017 et janvier-aout 2018</td>
+      <td>21998 -&gt; 52783 commandes ; 139,9 %</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H02</td>
+      <td>Ventes</td>
+      <td>Le panier articles moyen augmente sur les memes mois</td>
+      <td>136,1 -&gt; 136,8 BRL ; 0,5 %</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H03</td>
+      <td>Ventes</td>
+      <td>Novembre est le mois au plus fort volume livre en 2017</td>
+      <td>Maximum : 2017-11 (7289 commandes)</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H04</td>
+      <td>Ventes</td>
+      <td>Le volume quotidien moyen est plus faible le week-end</td>
+      <td>Week-end 127,9 vs semaine 170,3 commandes/jour</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H05</td>
+      <td>Produits</td>
+      <td>Dix categories concentrent plus de la moitie du GMV livre</td>
+      <td>Top 10 : 62,5 % du GMV</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H06</td>
+      <td>Vendeurs</td>
+      <td>Les 20 % de vendeurs les plus importants realisent au moins 80 % du GMV</td>
+      <td>589/2945 vendeurs : 82,2 % du GMV</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H07</td>
+      <td>Geographie</td>
+      <td>Les clients de SP representent plus de 40 % du GMV livre</td>
+      <td>SP : 38,4 % du GMV</td>
+      <td>Non observee</td>
+    </tr>
+    <tr>
+      <td>H08</td>
+      <td>Fidelisation</td>
+      <td>Moins de 10 % des clients livres ont plusieurs commandes observees</td>
+      <td>3,0 % ; 2801/93358 clients</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H09</td>
+      <td>Fidelisation</td>
+      <td>Le reachat livre a 90 jours est inferieur a 5 %</td>
+      <td>2,0 % ; 1514/75387 clients eligibles</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H10</td>
+      <td>Satisfaction</td>
+      <td>Les commandes en retard ont une note plus faible</td>
+      <td>Retard : 3,720 (n=1854) ; A l'heure : 4,289 (n=86327) ; ecart -0,569</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H11</td>
+      <td>Satisfaction</td>
+      <td>Parmi les retards, un retard plus long est associe a une note plus faible</td>
+      <td>rho=-0,037 ; n=1854</td>
+      <td>Non concluante</td>
+    </tr>
+    <tr>
+      <td>H12</td>
+      <td>Livraison</td>
+      <td>Les livraisons de plus de 15 jours ont une note plus faible</td>
+      <td>&gt;15 jours : 4,045 (n=20909) ; &lt;=15 jours : 4,349 (n=67272) ; ecart -0,304</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H13</td>
+      <td>Geographie</td>
+      <td>Les commandes entre Etats differents mettent plus longtemps a arriver</td>
+      <td>Inter-Etats : 15,202 (n=58903) ; Meme Etat : 7,941 (n=33058) ; ecart 7,261</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H14</td>
+      <td>Geographie</td>
+      <td>Une distance vendeur-client plus grande est associee a un delai plus long</td>
+      <td>rho=0,545 ; n=91505</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H15</td>
+      <td>Prix</td>
+      <td>Un port superieur a 20 % du panier total est associe a une note plus faible</td>
+      <td>Port &gt;20 % : 4,249 (n=39231) ; Port &lt;=20 % : 4,300 (n=48950) ; ecart -0,051</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H16</td>
+      <td>Vendeurs</td>
+      <td>Les commandes multi-vendeurs ont une note plus faible</td>
+      <td>Multi-vendeurs : 2,835 (n=1176) ; Mono-vendeur : 4,297 (n=87005) ; ecart -1,462</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H17</td>
+      <td>Produits</td>
+      <td>Les commandes multi-articles ont une note plus faible</td>
+      <td>Multi-articles : 3,698 (n=8780) ; Un article : 4,341 (n=79401) ; ecart -0,643</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H18</td>
+      <td>Paiement</td>
+      <td>Le paiement par carte en plusieurs fois accompagne un panier plus eleve</td>
+      <td>Plusieurs echeances : 197,822 (n=47135) ; Une echeance : 100,508 (n=22462) ; ecart 97,313</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H19</td>
+      <td>Paiement</td>
+      <td>Le panier carte est plus eleve que le panier boleto</td>
+      <td>Carte : 166,412 (n=69599) ; Boleto : 144,119 (n=18574) ; ecart 22,293</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H20</td>
+      <td>Produits</td>
+      <td>Les distributions des notes different entre les dix categories les plus frequentes</td>
+      <td>Notes moyennes de 4,21 a 4,43 ; H=237,54</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H21</td>
+      <td>Logistique</td>
+      <td>Les articles plus lourds ont des frais de port plus eleves</td>
+      <td>rho=0,459 ; n=83914</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H22</td>
+      <td>Produits</td>
+      <td>Davantage de photos produit est associe a une meilleure note</td>
+      <td>rho=-0,001 ; n=78277</td>
+      <td>Non concluante</td>
+    </tr>
+    <tr>
+      <td>H23</td>
+      <td>Satisfaction</td>
+      <td>Les avis avec commentaire ecrit ont une note plus faible</td>
+      <td>Commentaire : 3,955 (n=34656) ; Sans commentaire : 4,486 (n=53525) ; ecart -0,530</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H24</td>
+      <td>Fidelisation</td>
+      <td>Un premier achat livre en retard est associe a moins de reachat apres reception a 90 jours</td>
+      <td>Retard initial : 0,008 (n=5267) ; A l'heure initial : 0,012 (n=68072) ; ecart -0,004</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+    <tr>
+      <td>H25</td>
+      <td>Qualite</td>
+      <td>Les paiements concordent avec articles+port a 0,01 BRL pres pour au moins 99 % des commandes livrees</td>
+      <td>294 ecarts sur 96211 ; concordance 99,7 %</td>
+      <td>Observee</td>
+    </tr>
+    <tr>
+      <td>H26</td>
+      <td>Logistique</td>
+      <td>Une preparation plus longue est associee a davantage de retard</td>
+      <td>rho=0,175 ; n=90661</td>
+      <td>Association dans le sens attendu</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section id="s13"><h2>13. Plan d&#x27;action proposé</h2>
+<p>Les priorités ci-dessous sont des propositions issues de l&#x27;analyse. Aucune action n&#x27;a été déployée et aucun gain n&#x27;est revendiqué.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Priorité</th>
+      <th>Action proposée</th>
+      <th>Équipe</th>
+      <th>Indicateur</th>
+      <th>Validation nécessaire</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Auditer commandes multi-vendeurs et mois de retard élevé</td>
+      <td>Responsables opérations / support</td>
+      <td>Complétude, retard calendaire, notes 1–2</td>
+      <td>Analyse de commandes comparables puis pilote contrôlé</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Adapter les promesses aux flux géographiques</td>
+      <td>Logistique</td>
+      <td>Ponctualité + délai promis + conversion</td>
+      <td>Tester par zone, ne pas améliorer le taux en allongeant seulement la promesse</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Sécuriser les vendeurs clés</td>
+      <td>Équipe marketplace</td>
+      <td>GMV exposé, incidents, diversité offre</td>
+      <td>Évaluer coûts et capacité avant arbitrage</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Tester une relance après réception</td>
+      <td>CRM</td>
+      <td>Réachat incrémental à 90j et coût</td>
+      <td>Randomisation, groupe témoin, suivi complet</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Qualifier les écarts de paiement</td>
+      <td>Finance / data</td>
+      <td>Nombre et somme absolue des écarts</td>
+      <td>Relier remboursements et écritures comptables manquantes</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section id="s14"><h2>14. Ce que cette étude ne permet pas de conclure</h2>
+<p>Ces questions sont pertinentes pour un projet commercial, mais inventer des réponses affaiblirait le portfolio. Elles constituent un plan de collecte ou d&#x27;approfondissement.</p>
+<div class="table-scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Question non tranchée</th>
+      <th>Données nécessaires</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Marge et rentabilité</td>
+      <td>Coût d'achat, commissions, coûts réels de transport, retours</td>
+    </tr>
+    <tr>
+      <td>Conversion et abandon panier</td>
+      <td>Sessions, visites, paniers et événements de navigation</td>
+    </tr>
+    <tr>
+      <td>ROI marketing / CAC</td>
+      <td>Dépenses, canaux d'acquisition et attribution</td>
+    </tr>
+    <tr>
+      <td>Élasticité prix / effet promotion</td>
+      <td>Historique des prix, expositions, contrôle ou variation exogène</td>
+    </tr>
+    <tr>
+      <td>Churn et vraie valeur vie client</td>
+      <td>Historique plus long, couverture client complète, marge</td>
+    </tr>
+    <tr>
+      <td>Effet du transporteur</td>
+      <td>Identifiant transporteur, trajet et incidents détaillés</td>
+    </tr>
+    <tr>
+      <td>Taux de retours / remboursements</td>
+      <td>Tables dédiées de retours et remboursements</td>
+    </tr>
+    <tr>
+      <td>Profil démographique</td>
+      <td>Âge, revenu ou autres caractéristiques directement observées</td>
+    </tr>
+    <tr>
+      <td>Satisfaction causée par la livraison</td>
+      <td>Expérience contrôlée ou stratégie causale crédible</td>
+    </tr>
+    <tr>
+      <td>Performance actuelle d'Olist</td>
+      <td>Données actuelles et périmètre d'activité comparable</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section id="s15"><h2>15. Reproductibilité et livrables</h2>
+<p>Le pipeline Python a été exécuté dans Ubuntu WSL, environnement lewagon (Python 3.10.6, pandas 1.4.4, NumPy 1.23.5, SciPy 1.8.1, Matplotlib 3.5.3). Les neuf fichiers sont identifiés par empreinte SHA-256 dans source_manifest.csv.</p>
+<p>Les 15 requêtes SQL ont été exécutées. La vue SQL reconstruite depuis les données sources concorde commande par commande avec le modèle Python pour les montants et les notes. Les 14 cellules de code du notebook ont été exécutées et leurs sorties sont enregistrées.</p>
+<p>Le projet natif powerbi/Olist/Olist.pbip contient quatre pages, 14 graphiques, 16 cartes d&#x27;indicateurs, neuf filtres et deux tableaux. Il relie sept tables et 27 mesures DAX. Les définitions passent les schémas officiels Microsoft. L&#x27;actualisation, l&#x27;évaluation DAX et le rendu dans Power BI Desktop restent à vérifier avant l&#x27;enregistrement en PBIX.</p>
+<p>Source du jeu de données : https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce. Avant publication, conserver l&#x27;attribution et vérifier les conditions de redistribution sur la page source. Ce dossier n&#x27;a pas été publié sur GitHub ni envoyé à un tiers.</p>
+</section></main><footer>Source : <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce">Brazilian E-Commerce Public Dataset by Olist</a> · Étude exploratoire historique · Aucun gain causal revendiqué</footer></body></html>
