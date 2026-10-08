@@ -1,0 +1,16 @@
+texte;note;langue
+"Le produit fonctionne parfaitement, merci !";5;fr
+"Je n’ai pas reçu mon colis et personne ne répond.";1;fr
+"Le produit est bien mais l’emballage était abîmé.";3;fr
+"Produit conforme à la description.";4;fr
+"";4;fr
+"Produto excelente, chegou antes do prazo!";5;pt
+"Não gostei, o produto não funciona.";1;pt
+"A caixa chegou danificada, mas o produto está bom.";3;pt
+"O pacote contém dois itens azuis.";3;pt
+"";2;pt
+"Excellent product and helpful customer support.";5;en
+"My order never arrived. I want a refund.";1;en
+"The product works, but shipping was slow.";3;en
+"The package contains two blue items.";3;en
+"";5;en

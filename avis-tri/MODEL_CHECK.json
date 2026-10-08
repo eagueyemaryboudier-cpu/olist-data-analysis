@@ -1,0 +1,345 @@
+{
+  "kind": "24 exemples construits, non indépendants ; aucune précision généralisable",
+  "total": 24,
+  "correct": 23,
+  "abstentions": 1,
+  "seconds": 3.48,
+  "examples": [
+    {
+      "language": "fr",
+      "text": "Je ne suis pas satisfait de cet achat.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9115,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9115,
+        "Neutre": 0.0561,
+        "Positif": 0.0324
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Je n’ai jamais reçu ma commande.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.8029,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.8029,
+        "Neutre": 0.1726,
+        "Positif": 0.0245
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Le produit ne fonctionne plus après deux jours.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.7742,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.7742,
+        "Neutre": 0.1886,
+        "Positif": 0.0371
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Service déplorable, personne ne répond à mes messages.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9538,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9538,
+        "Neutre": 0.0343,
+        "Positif": 0.0119
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Très bon produit, je suis ravi de mon achat.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.9489,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.013,
+        "Neutre": 0.0381,
+        "Positif": 0.9489
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "La livraison a été rapide et tout est parfait.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.9277,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0151,
+        "Neutre": 0.0571,
+        "Positif": 0.9277
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Merci beaucoup, je recommande cette boutique.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.9339,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0116,
+        "Neutre": 0.0545,
+        "Positif": 0.9339
+      },
+      "chunks": 1
+    },
+    {
+      "language": "fr",
+      "text": "Le colis contient deux articles de couleur bleue.",
+      "expected": "Neutre",
+      "sentiment": "Neutre",
+      "confidence": 0.7451,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.1251,
+        "Neutre": 0.7451,
+        "Positif": 0.1297
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Não gostei, o produto não funciona.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9133,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9133,
+        "Neutre": 0.0724,
+        "Positif": 0.0143
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Nunca recebi meu pedido, quero meu dinheiro de volta.",
+      "expected": "Négatif",
+      "sentiment": "Indéterminé",
+      "confidence": 0.5393,
+      "uncertain": true,
+      "probabilities": {
+        "Négatif": 0.5393,
+        "Neutre": 0.417,
+        "Positif": 0.0436
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Péssimo atendimento, não recomendo.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9353,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9353,
+        "Neutre": 0.0446,
+        "Positif": 0.0202
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Chegou quebrado e ninguém resolveu o problema.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.8973,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.8973,
+        "Neutre": 0.0934,
+        "Positif": 0.0094
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Produto excelente, chegou antes do prazo!",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.8827,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0197,
+        "Neutre": 0.0977,
+        "Positif": 0.8827
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Muito bom, estou muito satisfeita com a compra.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.9291,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.016,
+        "Neutre": 0.0549,
+        "Positif": 0.9291
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "Adorei! Recomendo a todos.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.8319,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0463,
+        "Neutre": 0.1218,
+        "Positif": 0.8319
+      },
+      "chunks": 1
+    },
+    {
+      "language": "pt",
+      "text": "O pacote contém dois itens azuis.",
+      "expected": "Neutre",
+      "sentiment": "Neutre",
+      "confidence": 0.8507,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0822,
+        "Neutre": 0.8507,
+        "Positif": 0.0672
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "I never received my order.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.808,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.808,
+        "Neutre": 0.1736,
+        "Positif": 0.0185
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "The product stopped working after two days.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.6541,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.6541,
+        "Neutre": 0.3135,
+        "Positif": 0.0324
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "Terrible support, nobody answered my messages.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9413,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9413,
+        "Neutre": 0.047,
+        "Positif": 0.0117
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "I am not happy with this purchase.",
+      "expected": "Négatif",
+      "sentiment": "Négatif",
+      "confidence": 0.9392,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.9392,
+        "Neutre": 0.0447,
+        "Positif": 0.0161
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "Excellent product, I am delighted!",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.932,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0199,
+        "Neutre": 0.048,
+        "Positif": 0.932
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "Arrived early and works perfectly.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.8757,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0279,
+        "Neutre": 0.0963,
+        "Positif": 0.8757
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "Thank you, I highly recommend this seller.",
+      "expected": "Positif",
+      "sentiment": "Positif",
+      "confidence": 0.9029,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0189,
+        "Neutre": 0.0783,
+        "Positif": 0.9029
+      },
+      "chunks": 1
+    },
+    {
+      "language": "en",
+      "text": "The package contains two blue items.",
+      "expected": "Neutre",
+      "sentiment": "Neutre",
+      "confidence": 0.8267,
+      "uncertain": false,
+      "probabilities": {
+        "Négatif": 0.0632,
+        "Neutre": 0.8267,
+        "Positif": 0.1101
+      },
+      "chunks": 1
+    }
+  ]
+}
