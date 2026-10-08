@@ -15,11 +15,11 @@ const context = vm.createContext({
 });
 vm.runInContext(fs.readFileSync('app.js','utf8'), context);
 vm.runInContext(`
-columns=['texte','note','clair_sentiment']; filename='test.csv';
+columns=['texte','note','analyse_sentiment']; filename='test.csv';
 rows=[
- {index:1,text:'Très mauvais colis',rating:1,sentiment:'Négatif',themes:['Livraison'],evidence:['mauvais'],duplicate:false,method:'test',source:{texte:'=1+1',note:'1',clair_sentiment:'source conservée'}},
- {index:2,text:'Excellent',rating:5,sentiment:'Positif',themes:[],evidence:['excellent'],duplicate:false,method:'test',source:{texte:'Excellent',note:'5',clair_sentiment:''}},
- {index:3,text:'',rating:null,sentiment:'Sans texte',themes:[],evidence:[],duplicate:false,method:'test',source:{texte:'',note:'',clair_sentiment:''}}
+ {index:1,text:'Très mauvais colis',rating:1,sentiment:'Négatif',themes:['Livraison'],evidence:['mauvais'],duplicate:false,method:'test',source:{texte:'=1+1',note:'1',analyse_sentiment:'source conservée'}},
+ {index:2,text:'Excellent',rating:5,sentiment:'Positif',themes:[],evidence:['excellent'],duplicate:false,method:'test',source:{texte:'Excellent',note:'5',analyse_sentiment:''}},
+ {index:3,text:'',rating:null,sentiment:'Sans texte',themes:[],evidence:[],duplicate:false,method:'test',source:{texte:'',note:'',analyse_sentiment:''}}
 ];
 $('sentiment').value='Négatif';$('theme').value='Livraison';apply();
 `, context);
@@ -39,7 +39,7 @@ assert.match(element('sentiments').innerHTML,/1 · 100 %/);
 element('export').onclick();
 (async()=>{
   const csv = await lastBlob.text();
-  assert.match(csv, /_clair_sentiment/);
+  assert.match(csv, /_analyse_sentiment/);
   assert.match(csv, /"'=1\+1"/);
   assert.match(csv, /source conservée/);
   assert.equal(csv.split('\r\n').length,2);

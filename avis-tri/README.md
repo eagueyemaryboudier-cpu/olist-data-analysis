@@ -1,8 +1,8 @@
-# Clair — analyse multilingue des avis clients
+# Analyse d’avis clients — analyse multilingue des avis clients
 
 **Projet portfolio · Python · NLP local · Visualisation · Qualité des données**
 
-Transformer des fichiers d’avis en une vue exploitable : sentiments, thèmes, cas à relire et exports. Clair prolonge [l’étude Olist](../README.md) avec un outil interactif réutilisable sur d’autres données.
+Transformer des fichiers d’avis en une vue exploitable : sentiments, thèmes, cas à relire et exports. Analyse d’avis clients prolonge [l’étude Olist](../README.md) avec un outil interactif réutilisable sur d’autres données.
 
 **Statut : application locale fonctionnelle ; pas de démonstration publique hébergée.** GitHub présente le code et la documentation. L’adresse ci-dessous fonctionne seulement après démarrage sur votre ordinateur.
 

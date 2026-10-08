@@ -19,16 +19,16 @@ Comment accompagner la croissance d'une marketplace tout en améliorant les livr
 
 **Un résultat méthodologique important :** les avis rédigés avant réception modifient fortement la lecture du lien entre retard et satisfaction. L'étude compare plusieurs populations et distingue association et causalité.
 
-## Clair — outil interactif d’analyse des avis
+## Analyse d’avis clients — outil interactif d’analyse des avis
 
-**[Découvrir Clair et l’installer](avis-tri/README.md)** — application Python qui importe des fichiers, analyse le sentiment avec un modèle multilingue exécuté localement, détecte des thèmes personnalisables et permet de filtrer, corriger puis exporter les résultats.
+**[Découvrir Analyse d’avis clients et l’installer](avis-tri/README.md)** — application Python qui importe des fichiers, analyse le sentiment avec un modèle multilingue exécuté localement, détecte des thèmes personnalisables et permet de filtrer, corriger puis exporter les résultats.
 
 - CSV, Excel, texte libre, JSON/JSONL, DOCX et PDF texte.
 - Graphiques sur une échelle de 0 à 100 % des avis sélectionnés, avec bases de calcul explicites.
 - Analyse par lots, résultats incertains et corrections manuelles traçables.
 - [Fichier d’essai fictif](avis-tri/examples/avis_exemple.csv), tests d’import et de filtres, contrôles du modèle documentés.
 
-Le code est disponible ici ; **l’application n’est pas encore hébergée en ligne**. Le modèle, les exports et les avis bruts sont exclus du dépôt. Clair utilise son propre environnement Python 3.12, distinct de l’étude ci-dessous.
+Le code est disponible ici ; **l’application n’est pas encore hébergée en ligne**. Le modèle, les exports et les avis bruts sont exclus du dépôt. Analyse d’avis clients utilise son propre environnement Python 3.12, distinct de l’étude ci-dessous.
 
 ## Explorer le projet
 
