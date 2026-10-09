@@ -4,7 +4,9 @@
 
 Transformer des fichiers d’avis en une vue exploitable : sentiments, thèmes, cas à relire et exports. Analyse d’avis clients prolonge [l’étude Olist](../README.md) avec un outil interactif réutilisable sur d’autres données.
 
-**Statut : application locale fonctionnelle ; pas de démonstration publique hébergée.** GitHub présente le code et la documentation. L’adresse ci-dessous fonctionne seulement après démarrage sur votre ordinateur.
+**[Tester la démo sans installation](https://eagueyemaryboudier-cpu.github.io/olist-data-analysis/)** — 36 avis fictifs préanalysés avec le modèle local. Filtres, graphiques et exports fonctionnent dans le navigateur. La démo ne lance pas d’inférence sur de nouveaux fichiers ; installez la version Python pour vos propres données.
+
+L’adresse 127.0.0.1 ci-dessous fonctionne seulement après démarrage sur votre ordinateur.
 
 [Essayer avec un CSV fictif](examples/avis_exemple.csv) · [Contrôles du modèle](MODEL_CHECK.json)
 
@@ -16,12 +18,15 @@ Ouvrir http://127.0.0.1:8765 lorsque le serveur est lancé. Charger Olist ou un 
 Depuis la racine du dépôt, créer un environnement **Python 3.12 séparé** de celui de l’étude statistique (Python 3.10). Sous Linux/WSL :
 
 ```sh
+cd avis-tri
+python3.12 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 python download_model.py
 python server.py
 ```
 
-Sous Windows, créer l’environnement avec `py -3.12 -m venv .venv`, puis l’activer avec `.venv\Scripts\Activate.ps1` avant les commandes d’installation. Ctrl+C arrête le serveur. Le modèle (~297 Mo) est téléchargé une fois dans `models/sentiment/`, exclu de Git.
+Sous Windows, se placer dans `avis-tri/`, créer l’environnement avec `py -3.12 -m venv .venv`, puis l’activer avec `.venv\Scripts\Activate.ps1` avant les commandes d’installation. Ctrl+C arrête le serveur. Le modèle (~297 Mo) est téléchargé une fois dans `models/sentiment/`, exclu de Git.
 
 Importer `examples/avis_exemple.csv` pour essayer les fonctions : ces avis sont fictifs et ne proviennent pas d’Olist. Pour les données réelles, télécharger le [dataset Olist sur Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), puis importer `olist_order_reviews_dataset.csv` depuis l’interface. Le bouton « Charger les avis Olist » cherche ce fichier dans le dossier parent de `avis-tri/` ; l’import manuel fonctionne quel que soit son emplacement.
 

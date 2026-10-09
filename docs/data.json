@@ -1,0 +1,441 @@
+{
+  "description": "Avis fictifs rédigés pour démontrer les fonctions. Aucun résultat métier sur Olist ne peut en être déduit.",
+  "generated_at": "2026-10-08T20:35:52.989617+00:00",
+  "model": "onnx-community/twitter-xlm-roberta-base-sentiment-ONNX",
+  "model_revision": "3112e85dea04f0019bf01282916588e3c9dd9bc8",
+  "rows": [
+    {
+      "id": 1,
+      "text": "Le produit fonctionne parfaitement, merci !",
+      "rating": 5.0,
+      "language": "fr",
+      "sentiment": "Positif",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.9163,
+      "uncertain": false
+    },
+    {
+      "id": 2,
+      "text": "Je n’ai pas reçu mon colis et personne ne répond.",
+      "rating": 1.0,
+      "language": "fr",
+      "sentiment": "Négatif",
+      "themes": [
+        "Livraison"
+      ],
+      "score": 0.8291,
+      "uncertain": false
+    },
+    {
+      "id": 3,
+      "text": "Le produit est bien mais l’emballage était abîmé.",
+      "rating": 3.0,
+      "language": "fr",
+      "sentiment": "Négatif",
+      "themes": [
+        "Produit / qualité",
+        "Emballage"
+      ],
+      "score": 0.8997,
+      "uncertain": false
+    },
+    {
+      "id": 4,
+      "text": "Produit conforme à la description.",
+      "rating": 4.0,
+      "language": "fr",
+      "sentiment": "Positif",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.7423,
+      "uncertain": false
+    },
+    {
+      "id": 5,
+      "text": "",
+      "rating": 4.0,
+      "language": "fr",
+      "sentiment": "Sans texte",
+      "themes": [],
+      "score": null,
+      "uncertain": false
+    },
+    {
+      "id": 6,
+      "text": "Produto excelente, chegou antes do prazo!",
+      "rating": 5.0,
+      "language": "pt",
+      "sentiment": "Positif",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.8914,
+      "uncertain": false
+    },
+    {
+      "id": 7,
+      "text": "Não gostei, o produto não funciona.",
+      "rating": 1.0,
+      "language": "pt",
+      "sentiment": "Négatif",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.9301,
+      "uncertain": false
+    },
+    {
+      "id": 8,
+      "text": "A caixa chegou danificada, mas o produto está bom.",
+      "rating": 3.0,
+      "language": "pt",
+      "sentiment": "Indéterminé",
+      "themes": [
+        "Produit / qualité",
+        "Emballage"
+      ],
+      "score": 0.4391,
+      "uncertain": true
+    },
+    {
+      "id": 9,
+      "text": "O pacote contém dois itens azuis.",
+      "rating": 3.0,
+      "language": "pt",
+      "sentiment": "Neutre",
+      "themes": [],
+      "score": 0.8349,
+      "uncertain": false
+    },
+    {
+      "id": 10,
+      "text": "",
+      "rating": 2.0,
+      "language": "pt",
+      "sentiment": "Sans texte",
+      "themes": [],
+      "score": null,
+      "uncertain": false
+    },
+    {
+      "id": 11,
+      "text": "Excellent product and helpful customer support.",
+      "rating": 5.0,
+      "language": "en",
+      "sentiment": "Positif",
+      "themes": [
+        "Produit / qualité",
+        "Service client"
+      ],
+      "score": 0.8774,
+      "uncertain": false
+    },
+    {
+      "id": 12,
+      "text": "My order never arrived. I want a refund.",
+      "rating": 1.0,
+      "language": "en",
+      "sentiment": "Négatif",
+      "themes": [
+        "Prix / paiement"
+      ],
+      "score": 0.8322,
+      "uncertain": false
+    },
+    {
+      "id": 13,
+      "text": "The product works, but shipping was slow.",
+      "rating": 3.0,
+      "language": "en",
+      "sentiment": "Négatif",
+      "themes": [
+        "Livraison",
+        "Produit / qualité"
+      ],
+      "score": 0.7307,
+      "uncertain": false
+    },
+    {
+      "id": 14,
+      "text": "The package contains two blue items.",
+      "rating": 3.0,
+      "language": "en",
+      "sentiment": "Neutre",
+      "themes": [
+        "Livraison"
+      ],
+      "score": 0.8098,
+      "uncertain": false
+    },
+    {
+      "id": 15,
+      "text": "",
+      "rating": 5.0,
+      "language": "en",
+      "sentiment": "Sans texte",
+      "themes": [],
+      "score": null,
+      "uncertain": false
+    },
+    {
+      "id": 16,
+      "text": "Le service client a résolu mon problème en une heure.",
+      "rating": 5.0,
+      "language": "fr",
+      "sentiment": "Positif",
+      "themes": [
+        "Service client"
+      ],
+      "score": 0.7961,
+      "uncertain": false
+    },
+    {
+      "id": 17,
+      "text": "Le colis est arrivé en retard et le produit est cassé.",
+      "rating": 1.0,
+      "language": "fr",
+      "sentiment": "Négatif",
+      "themes": [
+        "Livraison",
+        "Produit / qualité"
+      ],
+      "score": 0.9161,
+      "uncertain": false
+    },
+    {
+      "id": 18,
+      "text": "Le prix est trop élevé pour cette qualité.",
+      "rating": 2.0,
+      "language": "fr",
+      "sentiment": "Négatif",
+      "themes": [
+        "Produit / qualité",
+        "Prix / paiement"
+      ],
+      "score": 0.9195,
+      "uncertain": false
+    },
+    {
+      "id": 19,
+      "text": "Emballage soigné et livraison rapide, je recommande.",
+      "rating": 5.0,
+      "language": "fr",
+      "sentiment": "Positif",
+      "themes": [
+        "Livraison",
+        "Emballage"
+      ],
+      "score": 0.8843,
+      "uncertain": false
+    },
+    {
+      "id": 20,
+      "text": "La couleur est différente de celle de la photo.",
+      "rating": 2.0,
+      "language": "fr",
+      "sentiment": "Indéterminé",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.5561,
+      "uncertain": true
+    },
+    {
+      "id": 21,
+      "text": "Je ne suis pas satisfait du remboursement proposé.",
+      "rating": 1.0,
+      "language": "fr",
+      "sentiment": "Négatif",
+      "themes": [
+        "Prix / paiement"
+      ],
+      "score": 0.9452,
+      "uncertain": false
+    },
+    {
+      "id": 22,
+      "text": "La boîte contient trois pièces et une notice.",
+      "rating": 3.0,
+      "language": "fr",
+      "sentiment": "Neutre",
+      "themes": [],
+      "score": 0.7953,
+      "uncertain": false
+    },
+    {
+      "id": 23,
+      "text": "O atendimento resolveu meu problema rapidamente.",
+      "rating": 5.0,
+      "language": "pt",
+      "sentiment": "Positif",
+      "themes": [
+        "Service client"
+      ],
+      "score": 0.8207,
+      "uncertain": false
+    },
+    {
+      "id": 24,
+      "text": "A entrega atrasou e o produto chegou quebrado.",
+      "rating": 1.0,
+      "language": "pt",
+      "sentiment": "Négatif",
+      "themes": [
+        "Livraison",
+        "Produit / qualité"
+      ],
+      "score": 0.818,
+      "uncertain": false
+    },
+    {
+      "id": 25,
+      "text": "O preço é muito alto para esta qualidade.",
+      "rating": 2.0,
+      "language": "pt",
+      "sentiment": "Négatif",
+      "themes": [
+        "Produit / qualité",
+        "Prix / paiement"
+      ],
+      "score": 0.8326,
+      "uncertain": false
+    },
+    {
+      "id": 26,
+      "text": "Embalagem perfeita e entrega rápida. Recomendo!",
+      "rating": 5.0,
+      "language": "pt",
+      "sentiment": "Positif",
+      "themes": [
+        "Livraison",
+        "Emballage"
+      ],
+      "score": 0.8861,
+      "uncertain": false
+    },
+    {
+      "id": 27,
+      "text": "A cor é diferente da foto.",
+      "rating": 2.0,
+      "language": "pt",
+      "sentiment": "Indéterminé",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.482,
+      "uncertain": true
+    },
+    {
+      "id": 28,
+      "text": "Não estou satisfeito com o reembolso.",
+      "rating": 1.0,
+      "language": "pt",
+      "sentiment": "Négatif",
+      "themes": [
+        "Prix / paiement"
+      ],
+      "score": 0.8837,
+      "uncertain": false
+    },
+    {
+      "id": 29,
+      "text": "A caixa contém três peças e um manual.",
+      "rating": 3.0,
+      "language": "pt",
+      "sentiment": "Neutre",
+      "themes": [
+        "Emballage"
+      ],
+      "score": 0.873,
+      "uncertain": false
+    },
+    {
+      "id": 30,
+      "text": "Customer support solved my problem in one hour.",
+      "rating": 5.0,
+      "language": "en",
+      "sentiment": "Positif",
+      "themes": [
+        "Service client"
+      ],
+      "score": 0.6728,
+      "uncertain": false
+    },
+    {
+      "id": 31,
+      "text": "Delivery was late and the product arrived broken.",
+      "rating": 1.0,
+      "language": "en",
+      "sentiment": "Négatif",
+      "themes": [
+        "Livraison",
+        "Produit / qualité"
+      ],
+      "score": 0.8119,
+      "uncertain": false
+    },
+    {
+      "id": 32,
+      "text": "The price is too high for this quality.",
+      "rating": 2.0,
+      "language": "en",
+      "sentiment": "Négatif",
+      "themes": [
+        "Produit / qualité",
+        "Prix / paiement"
+      ],
+      "score": 0.8901,
+      "uncertain": false
+    },
+    {
+      "id": 33,
+      "text": "Great packaging and fast delivery. Highly recommended!",
+      "rating": 5.0,
+      "language": "en",
+      "sentiment": "Positif",
+      "themes": [
+        "Livraison",
+        "Emballage"
+      ],
+      "score": 0.8776,
+      "uncertain": false
+    },
+    {
+      "id": 34,
+      "text": "The color is different from the photo.",
+      "rating": 2.0,
+      "language": "en",
+      "sentiment": "Indéterminé",
+      "themes": [
+        "Produit / qualité"
+      ],
+      "score": 0.5304,
+      "uncertain": true
+    },
+    {
+      "id": 35,
+      "text": "I am not satisfied with the refund.",
+      "rating": 1.0,
+      "language": "en",
+      "sentiment": "Négatif",
+      "themes": [
+        "Prix / paiement"
+      ],
+      "score": 0.9048,
+      "uncertain": false
+    },
+    {
+      "id": 36,
+      "text": "The box contains three parts and a manual.",
+      "rating": 3.0,
+      "language": "en",
+      "sentiment": "Neutre",
+      "themes": [],
+      "score": 0.831,
+      "uncertain": false
+    }
+  ]
+}

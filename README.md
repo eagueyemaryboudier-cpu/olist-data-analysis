@@ -28,7 +28,7 @@ Comment accompagner la croissance d'une marketplace tout en améliorant les livr
 - Analyse par lots, résultats incertains et corrections manuelles traçables.
 - [Fichier d’essai fictif](avis-tri/examples/avis_exemple.csv), tests d’import et de filtres, contrôles du modèle documentés.
 
-Le code est disponible ici ; **l’application n’est pas encore hébergée en ligne**. Le modèle, les exports et les avis bruts sont exclus du dépôt. Analyse d’avis clients utilise son propre environnement Python 3.12, distinct de l’étude ci-dessous.
+**[Tester la démo sans installation](https://eagueyemaryboudier-cpu.github.io/olist-data-analysis/)** — 36 avis fictifs préanalysés avec le modèle local, filtres, graphiques et exports. Pour analyser vos propres fichiers, installez la version Python. Le modèle, les exports et les avis bruts sont exclus du dépôt. Analyse d’avis clients utilise son propre environnement Python 3.12, distinct de l’étude ci-dessous.
 
 ## Explorer le projet
 
